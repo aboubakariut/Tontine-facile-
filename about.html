@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>À propos - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2> À propos de Tontine Facile </h2>
+        <p> Moderniser la tontine traditionnelle au Cameroun </p>
+    </header>
+    <div class="container">
+        <div class="card" style="text-align: center; padding: 24px 16px;">
+            <div style="font-size: 5rem; color: #16a34a; margin-bottom: 16px;">
+                <i class="fa fa-hand-holding-heart"></i>
+            </div>
+            <h3>Notre mission</h3>
+            <p style="font-size: 1.1rem; line-height: 1.6; margin: 16px 0;">
+                Rendre la gestion des tontines (Adachi, djangui, njangi, adjangui…) plus transparente, sécurisée et accessible à tous, partout au Cameroun – du Nord au Sud, de L'est à L'ouest.
+            </p>
+            <p style="color: #4b5563;">
+                Nous combinons la force de la solidarité communautaire avec la simplicité du Mobile Money.
+            </p>
+        </div>
+        <style>
+            .icone {
+                color: #16a34a;
+                font-size: 1.5rem;
+                /* margin-top: 4px; */
+            }
+        </style>
+        <div class="card">
+            <h3>Pourquoi Tontine Facile ?</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 16px;">
+                    <i class="fa fa-check-circle" class="icone"></i>
+                    <div>
+                        <strong>Transparence totale</strong><br>
+                        <small style="color: #4b5563;">Historique immuable, ordre des tours visible par tous, notifications automatiques</small>
+                    </div>
+                </li>
+                <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 16px;">
+                    <i class="fa fa-check-circle" class="icone"></i>
+                    <div>
+                        <strong>Paiements Mobile Money</strong><br>
+                        <small style="color: #4b5563;">MTN MoMo + Orange Money – rapide et tracé</small>
+                    </div>
+                </li>
+                <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 16px;">
+                    <i class="fa fa-check-circle" class="icone"></i>
+                    <div>
+                        <strong>Gratuit pour commencer</strong><br>
+                        <small style="color: #4b5563;">Aucune inscription payante, pas de frais cachés sur les fonctionnalités de base</small>
+                    </div>
+                </li>
+                <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 16px;">
+                    <i class="fa fa-check-circle" class="icone"></i>
+                    <div>
+                        <strong>Conçu pour le Cameroun</strong><br>
+                        <small style="color: #4b5563;">Adapté aux réalités locales : WhatsApp, SMS, numéros 6xx/65x/67x/69x, FCFA</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card" style="text-align: center;">
+            <h3>Une idée née à Ngaoundéré</h3>
+            <p style="margin: 16px 0; color: #4b5563;">
+                Développé avec ❤ par des jeunes camerounais qui croient en la puissance de la tontine pour l’épargne et l’entraide familiale.
+            </p>
+            <small style="color: #6b7280;">
+                Version 1.0 – Janvier 2026
+            </small>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour a l'acceuil
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

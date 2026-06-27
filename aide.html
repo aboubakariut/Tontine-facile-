@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact & Support - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Aide</h2>
+        <p>Les réponses aux questions les plus courantes</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Comment créer ma première tontine ?</h3>
+            <p>1. Connectez-vous ou inscrivez-vous<br>2. Allez dans "Mes Tontines" → "+ Créer une tontine"<br>3. Remplissez le nom, montant, fréquence, nombre de membres<br>4. Invitez vos proches via lien ou code</p>
+        </div>
+        <div class="card">
+            <h3>Comment payer ma cotisation ?</h3>
+            <p>Dans les détails de la tontine → "Cotiser maintenant" → choisissez MTN MoMo ou Orange Money → suivez les instructions de paiement.</p>
+        </div>
+        <div class="card">
+            <h3>Je n’ai pas reçu mon tour, que faire ?</h3>
+            <p>Vérifiez l’historique et contactez l’administrateur de la tontine. Si problème technique, ouvrez un ticket via "Contact & Support".</p>
+        </div>
+        <div class="card">
+            <h3>Comment changer mon numéro de téléphone ?</h3>
+            <p>Allez dans Profil → Modifier profil → changez le numéro → vérification OTP requise pour sécurité.</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 24px;">
+            <p>Vous ne trouvez pas la réponse ?</p>
+            <a href="contact.html" class="btn" style="margin-top: 12px;">
+Contacter le support
+</a>
+            <a href="faq.html" class="btn btn-outline" style="margin-top: 12px; display: block;">
+Voir la FAQ complète
+</a>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+← Retour au profil
+</a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conditions d'Utilisation - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Conditions d'Utilisation</h2>
+        <p>En vigueur au 04 février 2026</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>1. Acceptation des conditions</h3>
+            <p>
+                En accédant ou en utilisant l'application <strong>Tontine Facile</strong>, vous acceptez sans réserve les présentes Conditions d'Utilisation. Si vous n'êtes pas d'accord, veuillez ne pas utiliser l'application.
+            </p>
+            <p>
+                Ces conditions peuvent être modifiées à tout moment. La version en vigueur est celle affichée sur l'application au moment de votre utilisation.
+            </p>
+        </div>
+        <div class="card">
+            <h3>2. Description du service</h3>
+            <p>
+                Tontine Facile est une plateforme numérique permettant aux utilisateurs de :
+            </p>
+            <ul>
+                <li>Créer et gérer des tontines (djangui, njangi, adjangui, etc.)</li>
+                <li>Inviter des membres et suivre les tours de bénéficiaires</li>
+                <li>Effectuer ou recevoir des cotisations via MTN MoMo, Orange Money ou espèces</li>
+                <li>Consulter l'historique, les reçus et les statistiques de leurs tontines</li>
+            </ul>
+            <p>
+                Tontine Facile agit uniquement comme <strong>outil de gestion et de transparence</strong>. Nous ne sommes pas une institution financière, ni un opérateur de paiement.
+            </p>
+        </div>
+        <div class="card">
+            <h3>3. Inscription et compte utilisateur</h3>
+            <ul>
+                <li>Vous devez fournir un numéro de téléphone valide (format camerounais).</li>
+                <li>Le compte est personnel et non transférable.</li>
+                <li>Vous êtes responsable de la confidentialité de votre mot de passe et de toutes les activités sur votre compte.
+                </li>
+                <li>Nous pouvons suspendre ou supprimer un compte en cas de fraude, non-paiement répété, ou violation des règles.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>4. Règles des tontines</h3>
+            <p>
+                Chaque tontine est créée et gérée par son administrateur (le créateur). Tontine Facile n'intervient pas dans :
+            </p>
+            <ul>
+                <li>Les litiges entre membres</li>
+                <li>Les retards ou défauts de paiement</li>
+                <li>La redistribution des fonds</li>
+            </ul>
+            <p>
+                L'administrateur définit les règles (montant, fréquence, pénalités, ordre des tours, etc.). Ces règles doivent être respectées par tous les membres.
+            </p>
+        </div>
+        <div class="card">
+            <h3>5. Paiements et transactions</h3>
+            <ul>
+                <li>Les paiements se font directement via MTN MoMo ou Orange Money. Tontine Facile ne stocke aucun code secret ni PIN.</li>
+                <li>En cas de paiement en espèces, la validation est manuelle par l'administrateur.</li>
+                <li>Nous déclinons toute responsabilité en cas d'erreur de paiement, de fraude ou de non-restitution des fonds entre membres.</li>
+                <li>Les reçus générés sont des preuves internes ; ils n'ont pas valeur légale de reçu officiel.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>6. Responsabilités de l'utilisateur</h3>
+            <p>Vous vous engagez à :</p>
+            <ul>
+                <li>Fournir des informations exactes</li>
+                <li>Respecter les règles de chaque tontine à laquelle vous participez</li>
+                <li>Ne pas utiliser l'application à des fins illégales (blanchiment, fraude, etc.)</li>
+                <li>Ne pas harceler, insulter ou menacer d'autres membres</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>7. Limitation de responsabilité</h3>
+            <p>
+                Tontine Facile n'est pas responsable des pertes financières, litiges, ou dommages résultant de l'utilisation de l'application. Le service est fourni "tel quel", sans garantie de disponibilité continue.
+            </p>
+        </div>
+        <div class="card">
+            <h3>8. Propriété intellectuelle</h3>
+            <p>
+                Tous les éléments de l'application (design, textes, code, logo) sont protégés par le droit d'auteur. Toute reproduction ou utilisation commerciale sans autorisation est interdite.
+            </p>
+        </div>
+        <div class="card">
+            <h3>9. Droit applicable et litiges</h3>
+            <p>
+                Les présentes conditions sont régies par le droit camerounais. Tout litige sera soumis aux tribunaux compétents du Cameroun.
+            </p>
+        </div>
+        <div class="card">
+            <h3>10. Contact</h3>
+            <p>
+                Pour toute question : <a href="mailto:support@tontinefacile.cm" style="color:#16a34a;">support@tontinefacile.cm</a><br> Téléphone : +237 695 70 35 71
+            </p>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+        ← Retour au profil
+    </a>
+    </div>
+    <!-- Bottom nav -->
+    <script src="footer.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

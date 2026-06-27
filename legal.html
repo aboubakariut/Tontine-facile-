@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentions Légales - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Mentions Légales</h2>
+        <p>Informations légales obligatoires</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>1. Éditeur de l’application</h3>
+            <p><strong>Tontine Facile SARL</strong> (en cours de création)</p>
+            <p>Siège social : Ngaoundéré, Région de l’Adamaoua, Cameroun</p>
+            <p>Numéro RCCM : [À remplir lors de l’immatriculation]</p>
+            <p>Contact : support@tontinefacile.cm</p>
+            <p>Téléphone : +237 691 23 45 67 (support)</p>
+        </div>
+        <div class="card">
+            <h3>2. Hébergement</h3>
+            <p>L’application est hébergée par :</p>
+            <p><strong>Vercel Inc.</strong> (frontend) et <strong>Railway.app / Render.com</strong> (backend futur)
+            </p>
+            <p>Données stockées sur des serveurs sécurisés en Europe / États-Unis (conformément aux standards GDPR / lois camerounaises)</p>
+        </div>
+        <div class="card">
+            <h3>3. Propriété intellectuelle</h3>
+            <p>L’ensemble des contenus (textes, design, logo, code source visible) est protégé par le droit d’auteur.</p>
+            <p>© 2026 Tontine Facile – Tous droits réservés.</p>
+            <p>Interdiction de reproduction ou d’utilisation commerciale sans autorisation écrite.</p>
+        </div>
+        <div class="card">
+            <h3>4. Responsabilité</h3>
+            <p>Tontine Facile est une plateforme de gestion. Nous ne sommes pas responsables :</p>
+            <ul style="padding-left: 20px; margin: 12px 0;">
+                <li>des litiges entre membres d’une même tontine</li>
+                <li>des retards ou non-paiements entre participants</li>
+                <li>des erreurs de saisie ou des fraudes commises par les utilisateurs</li>
+            </ul>
+            <p>Les paiements sont traités par les opérateurs officiels (MTN, Orange). Tontine Facile n’intervient pas dans la gestion des fonds.</p>
+        </div>
+        <div class="card">
+            <h3>5. Données personnelles</h3>
+            <p>Nous collectons uniquement les données nécessaires : numéro de téléphone, nom, mot de passe (chiffré), historique des tontines auxquelles vous participez.</p>
+            <p>Conformément à la loi n° 2010/012 du 21 décembre 2010 relative à la cybersécurité et à la protection des données au Cameroun.</p>
+            <p>Vous pouvez demander la suppression de vos données via support@tontinefacile.cm</p>
+        </div>
+        <div class="card">
+            <h3>6. Droit applicable</h3>
+            <p>Les présentes mentions sont régies par le droit camerounais.</p>
+            <p>Tout litige sera soumis aux tribunaux compétents de Ngaoundéré ou Yaoundé.</p>
+        </div>
+        <p style="text-align: center; color: #6b7280; margin: 32px 0; font-size: 0.9rem;">
+            Dernière mise à jour : 31 janvier 2026
+        </p>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour a l'acceuil
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

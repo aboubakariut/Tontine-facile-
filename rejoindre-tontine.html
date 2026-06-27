@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rejoindre une tontine - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Rejoindre une tontine</h2>
+        <p>Entrez le code ou collez le lien d'invitation</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <form id="joinTontineForm">
+                <label for="code">Code d'invitation ou lien</label>
+                <input type="text" id="code" placeholder="Ex: TJ-2026-001 ou collez le lien complet" required>
+                <div style="margin: 20px 0;">
+                    <button type="submit" class="btn" style="width: 100%;">
+                        Rejoindre la tontine
+                    </button>
+                </div>
+                <p style="text-align: center; color: var(--text-secondary); margin-top: 16px;">
+                    Pas de code ? Demandez à l'administrateur de la tontine de vous envoyer une invitation.
+                </p>
+            </form>
+        </div>
+        <!-- Exemple de tontine trouvée (simulation) -->
+        <div id="tontineFound" class="card" style="display: none;">
+            <h3>Tontine trouvée !</h3>
+            <p><strong>Nom :</strong> <span id="tontineName">Djangui Famille 2026</span></p>
+            <p><strong>Montant par tour :</strong> 10 000 FCFA</p>
+            <p><strong>Fréquence :</strong> Hebdomadaire</p>
+            <p><strong>Membres actuels :</strong> 8 / 12</p>
+            <p><strong>Administrateur :</strong> Marie Ngo</p>
+            <div style="margin: 20px 0;"><button class="btn" id="confirmJoin">
+                Confirmer et rejoindre
+            </button>
+                <button class="btn btn-outline" id="cancelJoin" style="margin-left: 12px;">
+                Annuler
+            </button>
+            </div>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour au dashboard
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('joinTontineForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('code').value.trim();
+            if (code.length < 4) {
+                alert("Le code ou lien semble trop court.");
+                return;
+            }
+            // Simulation : on "trouve" une tontine
+            document.getElementById('tontineFound').style.display = 'block';
+            document.getElementById('joinTontineForm').style.display = 'none';
+        });
+        document.getElementById('confirmJoin').addEventListener('click', () => {
+            alert("Vous avez rejoint la tontine avec succès ! �n\nVous apparaissez maintenant dans la liste des membres. ");
+            window.location.href = 'dashboard.html';
+        });
+        document.getElementById('cancelJoin').addEventListener('click', () => {
+            document.getElementById('tontineFound').style.display = 'none';
+            document.getElementById('joinTontineForm').style.display = 'block';
+            document.getElementById('code').value = '';
+        });
+    </script>
+</body>
+
+</html>

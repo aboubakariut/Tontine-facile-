@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modifier mon profil - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Modifier mon profil</h2>
+        <p>Mettez à jour vos informations personnelles</p>
+    </header>
+    <div class="container">
+        <div class="card" style="text-align: center; padding: 24px 16px;">
+            <!-- Photo de profil -->
+            <div style="position: relative; display: inline-block; margin-bottom: 16px;">
+                <img id="profile-preview" src="./images/profil3.png" alt="Photo de profil" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #16a34a;">
+                <label for="profile-photo" class="btn btn-outline" style="position: absolute; bottom: 0; right: 0; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 0; font-size:1.1rem; cursor: pointer;">
+                    <i class="fa fa-camera"></i>
+                </label>
+                <input type="file" id="profile-photo" accept="images/*" style="display: none;">
+            </div>
+            <h3 id="current-name">Aboubakar Siddiki</h3>
+            <small id="current-phone" style="color: #4b5563;">+237 695 703 371</small>
+        </div>
+        <form id="editProfileForm" class="card">
+            <label for="fullName">Nom complet</label>
+            <input type="text" id="fullName" placeholder="Exemple: Aboubakar" value="Aboubakar Siddiki" required>
+            <label for="phone">Numéro de téléphone (WhatsApp principal)</label>
+            <div style="position: relative;">
+                <input type="tel" id="phone" placeholder="Exemple: 695703571" value="695703571" pattern="[6-9][0-9]{8}" required>
+                <!-- <i class="fa fa-phone" style="position: absolute; right: 12px; top: 38px; color: #1d4ed8;"></i> -->
+            </div>
+            <label for="email">Adresse email (optionnel)</label>
+            <input type="email" id="email" placeholder="exemple@gmail.com" value="aboubakar@gmail.com">
+            <div style="margin: 24px 0;">
+                <h4>Préférences rapides</h4>
+                <small style="color: #6b7280;">Pour plus d'options → allez dans <a href="notifications-preferences.html">Notifications & Préférences</a> </small>
+            </div>
+            <style>
+                .label input {
+                    position: absolute;
+                    width: 12px
+                }
+                
+                .label span {
+                    position: relative;
+                    margin-left: 15px;
+                    top: 5px;
+                }
+            </style>
+            <div style="margin: 16px 0;">
+                <label class="label">
+                    <input type="checkbox" id="pref-notif-sms" checked>
+                    <span>Recevoir les rappels par SMS</span>
+                </label>
+            </div>
+            <div style="margin: 16px 0;">
+                <label class="label">
+                    <input type="checkbox" id="pref-public-name">
+                    <span>Afficher mon nom complet aux autres membres</span>
+                </label>
+            </div>
+            <div style="margin: 24px 0; text-align: center;">
+                <a href="change-password.html" id="change-password-btn" class="btn btn-outline" style="display: inline-block; padding: 12px 20px;">
+                    <i class="fa fa-key" style="margin-right: 8px;"></i> Changer le mot de passe
+                </a>
+            </div>
+        </form>
+
+        <button type="submit" class="btn" style="width: 100%;">
+                Enregistrer les modifications
+            </button>
+        </form>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour au profil
+        </a>
+    </div>
+
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // 1. Aperçu photo de profil (simulation upload)
+        document.getElementById('profile-photo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        // 2. Validation + simulation sauvegarde
+        document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            // Validation simple téléphone Cameroun
+            if (!phone.match(/^[6-9][0-9]{8}$/)) {
+                alert("Numéro de téléphone invalide (format Cameroun : 6xx xxx xxx ou 9xx xxx xxx)");
+                return;
+            }
+            if (fullName.length < 3) {
+                alert("Le nom doit contenir au moins 3 caractères.");
+                return;
+            }
+            // Simulation sauvegarde
+            localStorage.setItem('user_fullName', fullName);
+            localStorage.setItem('user_phone', phone);
+            localStorage.setItem('user_email', email);
+            alert("Profil mis à jour avec succès ! �n\nNom :" + fullName + "\nTéléphone :" + phone);
+            // Option : rediriger vers profil après 1s
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 1500);
+        });
+        // 3. Charger les données existantes au démarrage (si déjà sauvegardées)
+        window.addEventListener('load', () => {
+            const savedName = localStorage.getItem('user_fullName');
+            const savedPhone = localStorage.getItem('user_phone');
+            const savedEmail = localStorage.getItem('user_email');
+            if (savedName) document.getElementById('fullName').value = savedName;
+            if (savedPhone) document.getElementById('phone').value = savedPhone;
+            if (savedEmail) document.getElementById('email').value = savedEmail;
+            if (savedName) document.getElementById('current-name').textContent = savedName;
+            if (savedPhone) document.getElementById('current-phone').textContent = '+237 ' + savedPhone;
+        });
+    </script>
+</body>
+
+</html>

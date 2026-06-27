@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historique des Transactions - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Historique des transactions</h2>
+        <p>Vos cotisations et réceptions</p>
+    </header>
+    <div class="container">
+        <!-- Résumé rapide -->
+        <div class="card" style="text-align: center;">
+            <div style="display: flex; justify-content: space-around; margin: 16px 0;">
+                <div>
+                    <div style="font-size: 1.8rem; font-weight: bold; color: #991b1b;">-450 000</div>
+                    <small style="color: #4b5563;">Cotisations payées</small>
+                </div>
+                <div>
+                    <div style="font-size: 1.8rem; font-weight: bold; color: #16a34a;">+720 000</div>
+                    <small style="color: #4b5563;">Montants reçus</small>
+                </div>
+            </div>
+            <div style="font-size: 1.4rem; font-weight: bold; color: #1d4ed8; margin-top: 12px;">
+                Solde net : +270 000 FCFA
+            </div>
+        </div>
+        <!-- Filtres -->
+        <div class="card" style="padding: 12px;">
+            <h3 style="margin-bottom: 12px;">Filtres</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <select style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #d1d5db;">
+                    <option>Toutes les tontines</option>
+                    <option>Djangui Famille 2026</option>
+                    <option>Njangi Collègues</option>
+                    <option>Tontine Épargne Études</option>
+                </select>
+                <select style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #d1d5db;">
+                    <option>Tout le temps</option>
+                    <option>Ce mois</option>
+                    <option>30 derniers jours</option>
+                    <option>Année 2026</option>
+                </select>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn btn-outline" style="flex: 1; padding: 10px; font-size: 0.95rem;">
+                    <i class="fa fa-arrow-down"></i> Cotisations
+                </button>
+                <button class="btn btn-outline" style="flex: 1; padding: 10px; font-size: 0.95rem;">
+                    <i class="fa fa-arrow-up"></i> Réceptions
+                </button>
+            </div>
+        </div>
+        <!-- Liste des transactions -->
+        <div class="card">
+            <h3>Historique récent</h3>
+            <ul style="list-style: none;">
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong style="display: block;">Cotisation – Tour 5</strong>
+                        <small style="color: #4b5563;">Djangui Famille 2026 • 17 fév 2026</small>
+                        <small style="color: #16a34a; display: block; margin-top: 4px;">Payé via MTN MoMo</small>
+                    </div>
+                    <div style="text-align: right; color: #991b1b; font-weight: bold;">
+                        -10 000 FCFA
+                    </div>
+                </li>
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong style="display: block;">Réception – Tour 3</strong>
+                        <small style="color: #4b5563;">Njangi Collègues • 3 fév 2026</small>
+                        <small style="color: #16a34a; display: block; margin-top: 4px;">Reçu via Orange Money</small>
+                    </div>
+                    <div style="text-align: right; color: #16a34a; font-weight: bold;">
+                        +50 000 FCFA
+                    </div>
+                </li>
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong style="display: block;">Cotisation – Tour 4</strong>
+                        <small style="color: #4b5563;">Djangui Famille 2026 • 10 fév 2026</small>
+                        <small style="color: #92400e; display: block; margin-top: 4px;">Payé avec 2 jours de retard</small>
+                    </div>
+                    <div style="text-align: right; color: #991b1b; font-weight: bold;">
+                        -10 000 FCFA
+                    </div>
+                </li>
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong style="display: block;">Réception – Tour 1</strong>
+                        <small style="color: #4b5563;">Tontine Épargne Études • 15 janv 2026</small>
+                        <small style="color: #16a34a; display: block; margin-top: 4px;">Reçu en espèces</small>
+                    </div>
+                    <div style="text-align: right; color: #16a34a; font-weight: bold;">
+                        +30 000 FCFA
+                    </div>
+                </li>
+                <!-- On peut ajouter plus d'entrées ici ou les générer en JS -->
+            </ul>
+            <div style="text-align: center; margin: 20px 0; color: #4b5563;">
+                <small>Fin de l'historique visible • Plus ancien disponible sur demande</small>
+            </div>
+            <a href="#" class="btn" style="display: block; text-align: center;">
+                <i class="fa fa-download"></i> Telecharger en PDF
+            </a>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 20px 0; display: block; text-align: center;">
+            ← Retour au profil
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Simulation clic sur "Exporter"
+        document.querySelector('.btn').addEventListener('click', e => {
+            if (e.target.closest('.btn').textContent.includes('Exporter')) {
+                e.preventDefault();
+                alert("Simulation : Génération du PDF en cours...\n(Dans la vraie version : téléchargement d'un reçu avec historique filtré)");
+            }
+        });
+    </script>
+</body>
+
+</html>

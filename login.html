@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tontine Facile - Connexion</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+  <script src="side.js"></script> 
+    <!-- Fond semi-transparent quand menu ouvert -->
+    <!-- <div id="overlay" class="overlay"></div> -->
+     <header>
+        <p>Gérez vos Adachi / djangui en toute transparence</p>
+    </header> 
+    <div class="container">
+        <div class="card">
+            <h3>Connexion</h3>
+            <form id="loginForm">
+                <div style="position:relative">
+                    <input type="tel" placeholder="Numéro WhatsApp ou téléphone" required/>
+                    <i class="fa fa-phone" style="position: absolute; right: 12px; top: 18px; color: #1d4ed8;"></i>
+                </div>
+                <div style="position:relative">
+                    <input type="password" placeholder="Mot de passe" required/>
+                    <i class="fa fa-lock" style="position: absolute; right: 12px; top: 18px; color: #1d4ed8;"></i>
+                </div>
+
+
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+            <p style="text-align:center; margin-top:16px;">
+                Pas de compte ? <a href="register.html">Inscrivez-vous</a>
+            </p>
+        </div>
+        <div class="card" style="text-align:center;"><small>Application de tontine – Ngaoundéré & partout au Cameroun</small>
+        </div>
+    </div>
+     <script src="footer.js"></script>
+    <script src="js/main.js"></script> 
+</body>
+
+</html>

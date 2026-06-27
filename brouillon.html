@@ -1,0 +1,91 @@
+<!-- ===============================================
+                    MODALE CHANGEMENT MOT DE PASSE
+            =============================================== -->
+<!-- Le bouton qui ouvre la modale (déjà dans ton formulaire) -->
+<!-- Exemple : -->
+<!-- <a href="#" id="change-password-btn" class="btn btn-outline">Changer le mot de passe</a> -->
+<!-- La modale elle-même -->
+<div style="margin: 24px 0; text-align: center;">
+    <a href="#" id="change-password-btn" class="btn btn-outline" style="display: inline-block; padding: 12px
+                20px;">
+        <i class="fa-solid fa-key" style="margin-right: 8px;"></i> Changer le mot de passe
+    </a>
+</div>
+<div id="passwordModal" class="modal" style="display:none;z-index: 2000;position:fixed;inset: 0;justify-content: center;align-items: center">
+    <div class=" modal-content " style="background: #ffffff;margin: 15% auto;padding: 24px;border-radius: 12px;width: 90%;max-width: 380px;box-shadow: 0 8px 32px rgba(0,0,0,0.35);border: 1px solid #d1d5db;position: relative; ">
+        <!-- Bouton fermer -->
+        <span id="closeModal " style="position: absolute;top: 12px;right: 16px;font-size: 28px;font-weight: bold;color: #374151;cursor: pointer; ">&times;</span>
+        <h3 style="margin-bottom: 20px; color: #1f2937; text-align: center; ">
+            Changer le mot de passe
+        </h3>
+        <form id="changePasswordForm ">
+            <label style="display: block; margin-bottom: 6px; color: #374151; font-weight: 500; ">
+                            Mot de passe actuel
+                        </label>
+            <input type="password " id="currentPassword " required placeholder="•••••••• " style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #d1d5db; border-radius:8px; ">
+            <label style="display: block; margin-bottom: 6px; color: #374151; font-weight: 500; ">
+                            Nouveau mot de passe
+                        </label>
+            <input type="password " id="newPassword " required minlength="6 " placeholder="Minimum 6 caractères " style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #d1d5db; border-radius:8px; ">
+            <label style="display: block; margin-bottom: 6px; color: #374151; font-weight: 500; ">
+                            Confirmer le nouveau mot de passe
+                        </label>
+            <input type="password " id="confirmNewPassword " required placeholder="Confirmez le nouveau mot de passe " style="width:100%; padding:12px; margin-bottom:24px; border:1px solid #d1d5db; border-radius:8px; ">
+            <button type="submit " class="btn " style="background: #1d4ed8;color: white;width: 100%;padding: 14px;border: none;border-radius: 8px;font-weight: bold;cursor: pointer; ">
+                            Mettre à jour le mot de passe
+                        </button>
+        </form>
+    </div>
+</div>
+<!-- Fond semi-transparent derrière la modale -->
+<div id="modalOverlay " style="display: none;position: fixed;top: 0; left: 0; right: 0; bottom: 0;background: rgba(0,0,0,0.55);z-index: 1999; "></div>
+<script>
+    // Ouverture / fermeture modale
+    const changePwdBtn = document.getElementById('change-password-btn'); // adapte l'ID si différent
+    const modal = document.getElementById('passwordModal');
+    const overlay = document.getElementById('modalOverlay');
+    const closeBtn = document.getElementById('closeModal');
+    if (changePwdBtn) {
+        changePwdBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+    }
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+    overlay.addEventListener('click', () => {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+    // Validation + simulation changement mot de passe
+    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const current = document.getElementById('currentPassword').value;
+        const newPwd = document.getElementById('newPassword').value;
+        const confirm = document.getElementById('confirmNewPassword').value;
+        if (newPwd.length < 6) {
+            alert("Le nouveau mot de passe doit contenir au moins 6 caractères. ");
+            return;
+        }
+        if (newPwd !== confirm) {
+            alert("Les deux mots de passe ne correspondent pas. ");
+            return;
+        }
+        // Simulation (dans la vraie version : appel API)
+        alert("Mot de passe changé avec succès !\n\n(Nouvelle valeur simulée : " + newPwd + ") ");
+        // Réinitialise les champs
+        document.getElementById('currentPassword').value = '';
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmNewPassword').value = '';
+        // Ferme la modale
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+</script>
+
+document.addEventListener('DOMContentLoaded', () => { const toggleBtn = document.getElementById('menu-toggle'); const closeBtn = document.getElementById('close-menu'); const sidebar = document.getElementById('sidebar'); const overlay = document.getElementById('overlay');
+function openMenu() { sidebar.classList.add('open'); overlay.classList.add('show'); } function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('show'); } toggleBtn.addEventListener('click', openMenu); closeBtn.addEventListener('click',
+closeMenu); overlay.addEventListener('click', closeMenu); // Fermer avec touche Échap document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); }); });

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutoriel - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Tutoriel</h2>
+        <p>Premiers pas dans Tontine Facile</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Étape 1 : Créer votre compte</h3>
+            <p>1. Cliquez sur "Inscription"<br>2. Entrez votre numéro WhatsApp et un mot de passe<br>3. Validez avec le code reçu par SMS (simulation pour l’instant)</p>
+        </div>
+        <div class="card">
+            <h3>Étape 2 : Créer votre première tontine</h3>
+            <p>1. Depuis le dashboard → "+ Créer une tontine"<br>2. Choisissez nom, montant, fréquence, nombre de membres
+                <br>3. Validez et invitez vos proches via WhatsApp ou SMS</p>
+        </div>
+        <div class="card">
+            <h3>Étape 3 : Cotiser ou recevoir</h3>
+            <p>1. Dans les détails de la tontine → "Cotiser maintenant"<br>2. Sélectionnez MTN MoMo ou Orange Money
+                <br>3. Payez le montant indiqué</p>
+            <p>Quand c’est votre tour → vous recevrez le montant total collecté !</p>
+        </div>
+        <div class="card">
+            <h3>Étape 4 : Suivre et gérer</h3>
+            <p>1. Dashboard → voir toutes vos tontines<br>2. Notifications → rappels automatiques<br>3. Reçus → historique des paiements</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 24px;">
+            <p>Prêt à commencer ?</p>
+            <a href="dashboard.html" class="btn" style="margin-top: 12px;">
+Aller au tableau de bord
+</a>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+← Retour au profil
+</a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

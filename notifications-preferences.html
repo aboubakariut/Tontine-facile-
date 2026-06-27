@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications & Préférences - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+    <!-- Font Awesome 7.1.0 local -->
+    <style>
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .toggle-item:last-child {
+            border-bottom: none;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked+.slider {
+            background-color: #16a34a;
+            /* vert succès */
+        }
+        
+        input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+        
+        .label input {
+            position: absolute;
+            width: 12px;
+        }
+        
+        .label span {
+            position: relative;
+            top: 5px;
+            margin-left: 15px;
+        }
+        
+        .label {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Parametres & Préférences</h2>
+        <p> Personnalisez comment vous recevez les alertes et vos options d'utilisation</p>
+    </header>
+    <!-- Header commun (si tu utilises placeholder ou inclusion) -->
+    <div id="header-placeholder"></div>
+    <div class="container">
+        <!-- Section Préférences générales -->
+        <div class="card">
+            <h3>Préférences générales</h3>
+            <!-- <div style="margin: 16px 0;">
+                <label for="theme">Thème de l'application</label>
+                <select id="theme" onchange="setTheme(this.value)" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #d1d5db;">
+                <option value="system">Système (clair/sombre automatique)</option>
+                <option value="light" selected>Clair</option>
+                <option value="dark">Sombre</option>
+            </select> -->
+            <style>
+                /* Toggle soleil / lune */
+                
+                .theme-toggle {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    user-select: none;
+                }
+                
+                .toggle-track {
+                    width: 60px;
+                    height: 28px;
+                    background: #d1d5db;
+                    border-radius: 28px;
+                    position: relative;
+                    transition: background 0.4s ease;
+                }
+                
+                .toggle-knob {
+                    width: 24px;
+                    height: 24px;
+                    background: white;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 2px;
+                    left: 2px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                }
+                
+                .toggle-knob i {
+                    font-size: 1.1rem;
+                    color: #f59e0b;
+                    /* jaune soleil */
+                    transition: color 0.4s;
+                }
+                
+                body.dark-mode .toggle-track {
+                    background: #374151;
+                }
+                
+                body.dark-mode .toggle-knob {
+                    transform: translateX(32px);
+                }
+                
+                body.dark-mode .toggle-knob i {
+                    color: #f3f4f6;
+                    /* blanc lune */
+                    content: "\f186";
+                    /* fa-moon via Font Awesome */
+                }
+                /* Optionnel : label dynamique */
+                
+                #themeLabel {
+                    transition: color 0.3s;
+                }
+                
+                body.dark-mode #themeLabel {
+                    color: #e5e7eb;
+                }
+            </style>
+            <div style="margin: 20px 0; display:flex;justify-content: space-between">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Thème de l'application</label>
+                <div id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
+                    <div class="toggle-track">
+                        <div class="toggle-knob">
+                            <i id="themeIcon" class="fa-solid fa-sun"></i>
+                        </div>
+                    </div>
+                    <span id="themeLabel" style="margin-left: 12px; font-size: 1rem;">Clair</span>
+                </div>
+            </div>
+            <div style="margin: 16px 0;">
+                <label for="language">Langue</label>
+                <select id="language" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #d1d5db;">
+                <option value="fr" selected>Français</option>
+                <option value="en">English</option><option value="ar"></العربيةoption>
+            </select>
+            </div>
+            <div style="margin: 16px 0;">
+                <label class="label">
+                <input type="checkbox" checked>
+                <span>Confirmer les cotisations importantes</span>
+            </label>
+
+            </div>
+            <div style="margin: 16px 0;">
+                <label class="label">
+                <input type="checkbox" checked>
+                <span> Demander une confirmation avant d'envoyer un paiement</span>
+            </label>
+                <!-- <small style="display: block; color: #4b5563; margin-top: 4px;">
+               
+            </small> -->
+            </div>
+            <div style="margin: 16px 0;">
+                <label class="label">
+                <input type="checkbox">
+                <span>Recevoir des conseils et astuces tontine</span>
+            </label>
+            </div>
+        </div>
+        <!-- Section Notifications -->
+        <div class="card">
+            <h3>Notifications</h3>
+            <p style="margin-bottom: 20px; color: #4b5563;">
+                Choisissez les types d'alertes que vous souhaitez recevoir
+            </p>
+            <div class="toggle-group">
+                <div class="toggle-item">
+                    <div>
+                        <strong>Rappels de cotisation</strong>
+                        <small>24h avant et le jour J</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-item">
+                    <div>
+                        <strong>Mon tour arrive (prochain bénéficiaire)</strong>
+                        <small>3 jours, 1 jour et le jour même</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-item">
+                    <div>
+                        <strong>Paiement reçu / cotisation validée</strong>
+                        <small>Quand un membre cotise</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-item">
+                    <div>
+                        <strong>Retards ou pénalités</strong>
+                        <small>Alertes pour membres en retard</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-item">
+                    <div>
+                        <strong>Invitations à rejoindre une tontine</strong>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-item">
+                    <div>
+                        <strong>Messages importants / annonces</strong>
+                        <small>Mises à jour de l'application</small>
+                    </div><label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div style="margin-top: 24px;">
+                <h4>Canaux de notification</h4>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+                    <label class="label">
+                        <input type="checkbox" checked>
+                            <span>Push notifications (dans l'application)</span>
+                    </label>
+                    <label class="label">
+                    <input type="checkbox" checked>
+                    <span>SMS</span>
+                    </label>
+                    <label class="label">
+                        <input type="checkbox" checked>
+                        <span>WhatsApp (via numéro associé)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center; margin-top: 24px;">
+            <button class="btn" style="width: 100%; max-width: 320px; padding: 14px;">
+                Enregistrer les modifications
+            </button>
+            <p style="margin-top: 16px; color: #4b5563; font-size: 0.9rem;">
+                Les changements sont appliqués immédiatement
+            </p>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour au profil
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

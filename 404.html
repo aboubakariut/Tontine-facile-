@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page non trouvée - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px;">
+        <div>
+            <h1 style="font-size: 8rem; font-weight: 900; color: #1d4ed8; margin: 0; line-height: 1;">404</h1>
+            <h2 style="font-size: 2.2rem; margin: 16px 0; color: #374151;">Oups ! Page introuvable</h2>
+            <p style="font-size: 1.1rem; color: #6b7280; max-width: 480px; margin: 0 auto 32px;">
+                La page que vous cherchez semble avoir disparu ou n’a jamais existé.
+            </p>
+            <a href="dashboard.html" class="btn" style="padding: 16px 32px; font-size: 1.1rem;">
+                <i class="fa-solid fa-home" style="margin-right: 10px;"></i> Retour au tableau de bord
+            </a>
+        </div>
+    </div>
+    <footer style="padding: 20px; text-align: center; color: #6b7280; font-size: 0.9rem; border-top: 1px solid #e5e7eb;">
+        © 2026 Tontine Facile – Ngaoundéré, Cameroun
+    </footer>
+</body>
+
+</html>

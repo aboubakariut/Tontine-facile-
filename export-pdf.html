@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exporter en PDF - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Exporter mes reçus / historique</h2>
+        <p>Générez un PDF de vos transactions</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Options d'export</h3>
+            <div style="margin: 20px 0;">
+                <label style="display: block; margin-bottom: 8px;">Période</label>
+                <select style="width: 100%; padding: 12px; border-radius: 8px;">
+<option>Tout l'historique</option>
+<option>Année 2026</option>
+<option>6 derniers mois</option>
+<option>Ce mois</option>
+</select>
+            </div>
+            <div style="margin: 20px 0;">
+                <label style="display: block; margin-bottom: 8px;">Type de document</label>
+                <select style="width: 100%; padding: 12px; border-radius: 8px;">
+<option>Reçus de cotisations payées</option>
+<option>Montants reçus</option>
+<option>Historique complet</option>
+</select>
+            </div>
+            <button id="generatePDF" class="btn" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+<i class="fa fa-file-pdf" style="margin-right: 10px;"></i>
+Générer et télécharger le PDF
+</button>
+            <p style="text-align: center; margin-top: 16px; color: #6b7280; font-size: 0.9rem;">
+                Le PDF contiendra tous les détails (dates, montants, tontines, moyens de paiement)
+            </p>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+← Retour au profil
+</a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('generatePDF').addEventListener('click', () => {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(18);
+            doc.text("Tontine Facile - Reçus & Historique", 20, 20);
+            doc.setFontSize(12);
+            doc.text("Généré le : " + new Date().toLocaleDateString('fr-FR'), 20, 30);
+            doc.text("Utilisateur : Aboubakar Moussa", 20, 38);
+            doc.line(20, 45, 190, 45);
+            // Exemples de lignes (simulation)
+            let y = 55;
+            doc.setFontSize(11);
+            doc.text("Date Tontine Type Montant Moyen", 20, y);
+            y += 8;
+            doc.text("17/02/2026 Djangui Famille 2026 Cotisation -10 000 MTN MoMo", 20, y);
+            y += 8;
+            doc.text("03/02/2026 Njangi Collègues Réception +50 000 Orange Money", 20, y);
+            y += 8;
+            doc.text("10/02/2026 Djangui Famille 2026 Cotisation -10 000 MTN MoMo (retard)", 20, y);
+            doc.save("tontine-facile-reçus.pdf");
+            alert("PDF généré et téléchargé ! (simulation complète)");
+        });
+    </script>
+</body>
+
+</html>

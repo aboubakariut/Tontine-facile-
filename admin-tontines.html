@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion des tontines - Admin - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Gestion des tontines (Admin)</h2>
+        <p>Vue complète de toutes les tontines actives</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Statistiques globales</h3>
+            <div style="display: flex; justify-content: space-around; margin: 16px 0;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.2rem; font-weight: bold; color: #16a34a;">28</div>
+                    <small>Tontines actives</small>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.2rem; font-weight: bold; color: #1d4ed8;">312</div>
+                    <small>Membres inscrits</small>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.2rem; font-weight: bold; color: #ef4444;">4.8 M</div>
+                    <small>FCFA transités</small>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Liste des tontines actives</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background: #1d4ed8; color: white;">
+                            <th style="padding: 12px;">Nom</th>
+                            <th>Montant</th>
+                            <th>Fréq.</th>
+                            <th>Membres</th>
+                            <th>Admin</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Djangui Famille 2026</td>
+                            <td>10 000 FCFA</td>
+                            <td>Hebdo</td>
+                            <td>12/12</td>
+                            <td>Marie Ngo</td>
+                            <td>
+                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;">Voir</button>
+                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem; margin-left: 8px;">Archiver</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Njangi Collègues</td>
+                            <td>50 000 FCFA</td>
+                            <td>Mensuel</td>
+                            <td>8/10</td>
+                            <td>Joseph Kamga</td>
+                            <td>
+                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;">Voir</button>
+                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem; margin-left: 8px;">Archiver</button>
+                            </td>
+                        </tr>
+                        <!-- Ajoute autant de lignes que tu veux -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+← Retour au dashboard
+</a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

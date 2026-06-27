@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Archives - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Archives</h2>
+        <p>Tontines terminées et archivées</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Tontines terminées</h3>
+            <div style="margin: 16px 0;">
+                <!-- Exemple 1 -->
+                <div style="padding: 16px; border-bottom: 1px solid #e5e7eb;">
+                    <strong>Djangui Famille 2025</strong>
+                    <small style="display: block; color: #4b5563;">Terminée le 31 déc 2025 • 12 membres</small>
+                    <p style="margin: 8px 0;">Montant total levé : 1 200 000 FCFA</p>
+                    <button class="btn btn-outline" style="margin-top: 8px; font-size: 0.9rem;">
+<i class="fa fa-eye"></i> Voir détails archivés
+</button>
+                </div>
+                <!-- Exemple 2 -->
+                <div style="padding: 16px;">
+                    <strong>Njangi Épargne Études 2025</strong>
+                    <small style="display: block; color: #4b5563;">Terminée le 15 nov 2025 • 10 membres</small>
+                    <p style="margin: 8px 0;">Montant total levé : 3 000 000 FCFA</p>
+                    <button class="btn btn-outline" style="margin-top: 8px; font-size: 0.9rem;">
+<i class="fa fa-eye"></i> Voir détails archivés
+</button>
+                </div>
+            </div>
+            <p style="text-align: center; color: #6b7280; margin-top: 24px;">
+                Aucune autre tontine archivée pour le moment.
+            </p>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+← Retour au tableau de bord
+</a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

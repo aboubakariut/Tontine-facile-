@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Détails Tontine - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Djangui Famille 2026</h2>
+        <p>ID: TJ-2026-001 | Créée le 15 Janv 2026</p>
+    </header>
+    <div class="container">
+        <!-- Infos générales -->
+        <div class="card">
+            <h3>Informations</h3>
+            <p><strong>Montant par tour :</strong> 10 000 FCFA</p>
+            <p><strong>Fréquence :</strong> Hebdomadaire (chaque lundi)</p>
+            <p><strong>Nombre de membres :</strong> 12 / 12</p>
+            <p><strong>Date de début :</strong> 20 Janv 2026</p>
+            <p><strong>Tours restants :</strong> 8 / 12</p>
+            <p><strong>Cagnotte totale levée :</strong> 40 000 FCFA</p>
+            <span class="badges success">Active</span>
+        </div>
+        <!-- Ton statut personnel -->
+        <div class="card">
+            <h3>Ton statut</h3>
+            <p><strong>Ton tour :</strong> Tour n°5 – <strong>Dans 3 jours (lundi 17 fév)</strong></p>
+            <p><strong>Cotisations payées :</strong> 4 / 4</p>
+            <p><strong>Reçu jusqu'ici :</strong> 0 FCFA (ton tour arrive !)</p>
+            <div style="margin: 16px 0; display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="cotiser.html" class="btn">Cotiser maintenant <i class="fa fa-money-bill-wave"></i></a>
+                <a href="recus.html" class="btn btn-outline">Voir mes reçus</a>
+            </div>
+        </div>
+        <!-- Liste des membres -->
+        <div class="card">
+            <h3>Membres & Ordre des tours</h3>
+            <ul style="list-style: none;">
+                <div style="margin-top: 24px; text-align: right;display:flex;justify-content:space-between;">
+                    <button class="btn btn-outline">
+                            <i class="fa fa-user-plus"></i> Ajouter un membre
+                            </button>
+                    <button class="btn btn-outline">
+                            <i class="fa fa-arrows"></i> Réordonner les tours
+                            </button>
+                </div>
+                <!-- Simulation : message admin seulement -->
+                <p style="text-align: center; color: #f59e0b; margin-top: 12px; font-size: 0.9rem;">
+                    (Ces options sont réservées à l'administrateur de la tontine)
+                </p>
+                <!-- Gestion membres (visible seulement si admin) -->
+                <div id="adminActions" style="margin: 24px 0; display: none;">
+                    <h3 style="margin-bottom: 12px;">Gestion des membres (Admin)</h3>
+
+                    <!-- Liste avec boutons d’action par membre -->
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                            <div>
+                                <strong>Aboubakar Moussa</strong> (Toi)
+                                <small style="display: block; color: #16a34a;">Tour 5 – Prochain</small>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline" style="font-size: 0.85rem; padding: 6px 12px; margin-right: 8px;">
+                                    <i class="fa fa-ban"></i> Exclure
+                                </button>
+                            </div>
+                        </li>
+                        <!-- Autres membres avec bouton exclure -->
+                        <li style="padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                            <div>
+                                <strong>Marie Ngo</strong>
+                                <small style="display: block; color: #4b5563;">Tour 1 – Reçu</small>
+                            </div>
+                            <button class="btn btn-outline danger" style="font-size: 0.85rem; padding: 6px 12px;">
+        <i class="fa fa-ban"></i> Exclure
+        </button>
+                        </li>
+                        <!-- Ajoute d'autres membres si besoin -->
+                    </ul>
+                    <p style="text-align: center; color: #f59e0b; margin-top: 16px; font-size: 0.9rem;">
+                        Attention : exclure un membre est irréversible et peut affecter l'ordre des tours.
+                    </p>
+                </div>
+                <script>
+                    // Simulation : montrer les actions admin (à connecter au vrai statut plus tard)
+                    document.addEventListener('DOMContentLoaded', () => {
+                        // Pour l'instant, on affiche toujours (simulation admin)
+                        document.getElementById('adminActions').style.display = 'block';
+                        // Simulation exclusion
+                        document.querySelectorAll('.btn.danger').forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                if (confirm("Voulez-vous vraiment exclure ce membre ?")) {
+                                    alert("Membre exclu avec succès.");
+                                    btn.closest('li').remove();
+                                }
+                            });
+                        });
+                    });
+                </script>
+                <li style="padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong>1. Aboubakar Moussa</strong> (Toi)
+                        <small style="display: block; color: #16a34a;">Tour actuel / Prochain</small>
+                    </div>
+                    <span class="badges success">Payé</span>
+                </li>
+                <li style="padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong>2. Marie Ngo</strong>
+                        <small style="display: block; color: #4b5563;">Reçu le 27 janv</small>
+                    </div>
+                    <span class="badges success">Reçu</span>
+                </li>
+                <li style="padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong>3. Paul Atangana</strong>
+                    </div>
+                    <span class="badges warning">En attente</span>
+                </li>
+                <li style="padding: 12px 0; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between;align-items: center;">
+                    <div>
+                        <strong>4. Fatima Bello</strong>
+                    </div>
+                    <span class="badges success">Payé</span>
+                </li>
+                <!-- ... on peut ajouter plus dynamiquement en JS plus tard -->
+            </ul>
+
+        </div>
+
+        <!-- Calendrier des tours (simple liste) -->
+        <div class="card">
+            <h3>Calendrier des tours</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                <thead>
+                    <tr style="background: #1d4ed8; color: white;">
+                        <th style="padding: 10px;">Tour</th>
+                        <th style="padding: 10px;">Date</th>
+                        <th style="padding: 10px;">Bénéficiaire</th>
+                        <th style="padding: 10px;">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f0fdf4;">
+                        <td style="padding: 10px; text-align: center;">1</td>
+                        <td style="padding: 10px;">20 janv</td>
+                        <td>Marie Ngo</td>
+                        <td><span class="badges success">Reçu</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; text-align: center;">2</td>
+                        <td style="padding: 10px;">27 janv</td>
+                        <td>Paul Atangana</td>
+                        <td><span class="badges success">Reçu</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; text-align: center;">3</td>
+                        <td style="padding: 10px;">3 fév</td>
+                        <td>Fatima Bello</td>
+                        <td><span class="badges success">Reçu</span></td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; text-align: center;">4</td>
+                        <td style="padding: 10px;">10 fév</td>
+                        <td>Joseph Kamga</td>
+                        <td><span class="badges warning">En cours</span></td>
+                    </tr>
+                    <tr style="background: #dbeafe; font-weight: bold;">
+                        <td style="padding: 10px; text-align: center;">5</td>
+                        <td style="padding: 10px;">17 fév</td>
+                        <td>Aboubakar Moussa</td>
+                        <td><span class="badges success">Prochain</span></td>
+                    </tr>
+                    <!-- Ajoute les suivants si tu veux -->
+                </tbody>
+            </table>
+        </div>
+        <a href="dashboard.html" class="btn btn-outline" style="margin: 20px 0; display: block; text-align: center;">
+            ← Retour à mes tontines
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

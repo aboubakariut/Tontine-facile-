@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ & Support - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+    <style>
+        /* Styles spécifiques pour accordéon FAQ */
+        
+        .faq-item {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            cursor: pointer;
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+        
+        .faq-question:hover {
+            color: #16a34a;
+        }
+        
+        .faq-answer {
+            display: none;
+            padding: 0 0 16px 0;
+            color: #4b5563;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>FAQ & Support</h2>
+        <p>Retrouvez les réponses à vos questions les plus fréquentes</p>
+    </header>
+    <div class="container">
+        <!-- Recherche rapide (optionnel, statique pour l'instant) -->
+        <div class="card" style="margin-bottom: 24px;">
+            <input type="text" placeholder="Rechercher une question..." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #d1d5db;" />
+        </div>
+        <!-- Sections FAQ -->
+        <div class="card">
+            <h3>Questions fréquentes</h3>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment créer une tontine sur Tontine Facile ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Allez dans "Mes Tontines" → cliquez sur "+ Créer une nouvelle tontine". Remplissez le nom, le montant, la fréquence (hebdo/mensuelle), le nombre de membres et la date de début. Vous pouvez choisir MTN MoMo ou Orange Money comme moyen principal. Une fois
+                    créée, partagez le lien ou le code d'invitation avec vos contacts.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment payer ma cotisation ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Cliquez sur "Cotiser maintenant" dans les détails de votre tontine. Vous serez redirigé vers MTN MoMo ou Orange Money (selon votre choix lors de la création). Le paiement est automatique et tracé. En cas de paiement manuel (espèces), le gestionnaire peut
+                    valider.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Que se passe-t-il si je suis en retard ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">Vous recevrez une notification de rappel 24h avant et le jour J. Après 48h de retard, une pénalité peut s'appliquer (définie par le gestionnaire). Le tour peut être décalé ou passer au suivant selon les règles de la tontine. Contactez
+                    votre gestionnaire pour régulariser.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Est-ce sécurisé ? Mes données et argent sont protégés ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Oui ! Nous utilisons le chiffrement pour vos données. Les paiements passent par les API officielles MTN MoMo et Orange Money (pas de stockage de codes secrets). L'historique est immuable et visible par tous les membres pour plus de transparence. Nous
+                    ne partageons jamais vos infos.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment inviter des membres ou rejoindre une tontine ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Pour inviter : partagez le lien/code depuis les détails de la tontine (via WhatsApp, SMS...). Pour rejoindre : cliquez sur le lien reçu ou entrez le code dans "Rejoindre une tontine" depuis le dashboard.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Que faire si je n'ai pas reçu mon tour ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Vérifiez l'historique des transactions et le calendrier des tours. Contactez le gestionnaire de la tontine. Si problème technique, ouvrez un ticket via la section Support ci-dessous.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment changer mon numéro ou mot de passe ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">Allez dans Profil → "Modifier profil" ou "Changer le mot de passe". Pour le numéro, une vérification OTP est requise pour des raisons de sécurité.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>L'application est-elle gratuite ?</span>
+                    <i class="fa fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Oui pour les fonctionnalités de base (création, gestion, paiements). Certaines options avancées (rapports PDF détaillés, support prioritaire) pourraient être payantes à l'avenir.
+                </div>
+            </div>
+        </div>
+        <!-- Section Support / Contact -->
+        <div class="card" style="margin-top: 24px;">
+            <h3>Besoin d'aide supplémentaire ?</h3>
+            <p style="text-align: center; margin: 16px 0;">
+                Contactez-nous directement :
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
+                <a href="tel:+237695703571" class="btn" style="width: 100%; max-width: 320px;">
+                    <i class="fa fa-phone"></i> Appeler le support (+237 695 703 571)
+                </a>
+                <a href="https://wa.me/237695703571" target="_blank" class="btn" style="background: #16a34a; width:100%; max-width: 320px;">
+                    <i class="fa fa-whatsapp"></i> WhatsApp Support
+                </a>
+                <a href="mailto:support@tontinefacile.cm" class="btn btn-outline" style="width: 100%; max-width:320px;">
+                    <i class="fa fa-envelope"></i> Envoyer un email
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #4b5563;">
+                Horaires : Lundi–Samedi 8h–20h (Heure de Ngaoundéré)
+            </p>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour au profil
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const isActive = element.classList.toggle('active');
+            answer.classList.toggle('show', isActive);
+        }
+        // Simulation clic support (optionnel)
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                if (btn.textContent.includes('Support') || btn.textContent.includes('WhatsApp')) {
+                    // Pas de preventDefault pour les vrais liens
+                } else {
+                    alert("Ouverture du canal de support (simulation pour l'instant) !");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

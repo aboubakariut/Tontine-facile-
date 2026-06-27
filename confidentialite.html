@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confidentialité & Sécurité - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+    <!-- ton Font Awesome local 7.1.0 -->
+</head>
+
+<body>
+    <!-- Placeholder pour header commun si tu l'as -->
+    <div id="header-placeholder"></div>
+    <div class="container">
+        <div class="card">
+            <h2>Politique de Confidentialité et de Sécurité</h2>
+            <p style="color: #4b5563; font-size: 0.95rem; margin-top: 8px;">
+                Dernière mise à jour : 31 janvier 2026
+            </p>
+            <p>
+                Chez <strong>Tontine Facile</strong>, la protection de vos données personnelles et la sécurité de vos transactions sont nos priorités absolues. Nous nous engageons à respecter la législation camerounaise, notamment la
+                <strong>Loi n°2010/012 du 21 décembre 2010 relative à la cybersécurité et à la cybercriminalité</strong>, ainsi que les principes internationaux de protection de la vie privée.
+            </p>
+        </div>
+        <div class="card">
+            <h3>1. Données que nous collectons</h3>
+            <p>Nous collectons uniquement les informations nécessaires au fonctionnement de l'application :</p>
+            <ul>
+                <li><strong>Informations d'identification</strong> : Numéro de téléphone (principal identifiant), nom complet (facultatif ou obligatoire selon le contexte)</li>
+                <li><strong>Données de compte</strong> : Mot de passe (chiffré), préférences de notification</li>
+                <li><strong>Données de tontine</strong> : Montants cotisés/reçus, ordre des tours, historique des transactions (sans stockage des codes secrets MoMo/Orange)</li>
+                <li><strong>Données techniques</strong> : Adresse IP, type d'appareil, version OS (pour sécurité et amélioration)
+                </li>
+                <li><strong>Données de paiement</strong> : Nous ne stockons JAMAIS vos codes secrets, PIN ou numéros de compte complets. Les paiements passent directement par les API officielles MTN MoMo et Orange Money.
+                </li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>2. Comment nous utilisons vos données</h3>
+            <ul>
+                <li>Permettre la création, la gestion et la participation aux tontines</li>
+                <li>Envoyer des notifications (SMS/WhatsApp/push) : rappels de cotisation, tour arrivé, paiement reçu</li>
+                <li>Assurer la transparence : historique visible par tous les membres d'une même tontine</li>
+                <li>Améliorer l'application et détecter les fraudes</li>
+                <li>Respecter les obligations légales (ex. : lutte contre la cybercriminalité)</li>
+            </ul>
+            <p>Nous ne vendons jamais vos données à des tiers à des fins publicitaires.</p>
+        </div>
+        <div class="card">
+            <h3>3. Sécurité de vos données</h3>
+            <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées :</p>
+            <ul>
+                <li>Chiffrement des mots de passe (algorithmes sécurisés)</li>
+                <li>HTTPS partout (connexion sécurisée)</li>
+                <li>Accès restreint aux données (seul le nécessaire pour le fonctionnement)</li>
+                <li>Protection contre les attaques courantes (SQL injection, XSS, etc.)</li>
+                <li>Partenariats avec des fournisseurs de paiement certifiés (MTN, Orange)</li>
+            </ul>
+            <p>Malgré nos efforts, aucun système n'est infaillible. En cas de violation, nous vous informerons dans les meilleurs délais, conformément à la loi camerounaise.</p>
+        </div>
+        <div class="card">
+            <h3>4. Partage de vos données</h3>
+            <p>Vos données ne sont partagées que dans ces cas :</p>
+            <ul>
+                <li>Avec les autres membres de votre tontine (nom, statut de paiement – pour transparence)</li>
+                <li>Avec les opérateurs Mobile Money pour traiter les paiements (montant + numéro, sans codes secrets)
+                </li>
+                <li>Si exigé par la loi ou une autorité judiciaire camerounaise</li>
+                <li>Avec des prestataires techniques (hébergement, notifications) sous contrat de confidentialité</li>
+            </ul>
+            <p>Pas de transfert hors CEMAC sans votre consentement explicite ou base légale.</p>
+        </div>
+        <div class="card">
+            <h3>5. Vos droits</h3>
+            <p>Conformément à la Loi n°2010/012 et aux principes de protection des données :</p>
+            <ul>
+                <li>Accéder à vos données personnelles</li>
+                <li>Demander leur rectification ou suppression</li>
+                <li>Retirer votre consentement (sauf obligations légales)</li>
+                <li>Vous opposer à certains traitements</li>
+            </ul>
+            <p>Pour exercer ces droits : contactez-nous à <a href="mailto:support@tontinefacile.cm" style="color:#16a34a;">support@tontinefacile.cm</a> ou via l'application (section Profil → Support).</p>
+        </div>
+        <div class="card">
+            <h3>6. Cookies et technologies similaires</h3>
+            <p>Nous utilisons des cookies techniques essentiels (authentification, préférences). Pas de cookies publicitaires tiers. Vous pouvez gérer vos préférences dans les paramètres de votre navigateur.</p>
+        </div>
+        <div class="card">
+            <h3>7. Contact & Responsable</h3>
+            <p>Tontine Facile SARL (en cours d'immatriculation)</p>
+            <p>Ngaoundéré, Région de l'Adamaoua, Cameroun</p>
+            <p>Email : <a href="mailto:support@tontinefacile.cm" style="color: #16a34a;">support@tontinefacile.cm</a>
+            </p>
+            <p>Téléphone : +237 695 703 571 (support)</p>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0; display: block; text-align: center;">
+            ← Retour au profil
+        </a>
+    </div>
+    <!-- Placeholder pour footer/nav commun -->
+    <div id="footer-placeholder"></div>
+    <!-- Script pour header/footer si tu utilises la méthode document.write ou fetch -->
+    <!-- Ou ton script active-nav.js -->
+    <script src="js/active-nav.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tontine Facile - Inscription</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <p>Rejoignez des milliers de djangui / njangi au Cameroun</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h3>Inscription</h3>
+            <p style="text-align: center; color: #4b5563; margin-bottom: 20px;">
+                Créez votre compte en 30 secondes
+            </p>
+            <form id="registerForm">
+                <div style="position: relative;">
+                    <input type="tel" id="phone" placeholder="Numéro WhatsApp (ex: 695703571)" required/>
+                    <i class="fa fa-phone" style="position: absolute; right: 12px; top: 18px; color: #1d4ed8;"></i>
+                </div>
+                <div style="position: relative;">
+                    <input type="text" placeholder="Nom complet (ex: Aboubakar siddiki)" required/>
+                    <i class="fa fa-user" style="position: absolute; right: 12px; top: 18px; color: #1d4ed8;"></i>
+                </div>
+
+                <div style="position: relative;">
+                    <input type="password" id="password" placeholder="Mot de passe (min 6 caractères)" required/>
+                    <i class="fa fa-lock" style="position: absolute; right: 12px; top: 18px; color: #1d4ed8;"></i>
+                </div>
+                <div style="position: relative;">
+                    <input type="password" id="confirmPassword" placeholder="Confirmer le mot de passe" required/>
+                    <i class="fa fa-lock" style="position: absolute; right: 12px; top: 18px; color: #1d4ed8;"></i>
+                </div>
+                <div>
+                    <!-- Option OTP futur (à décommenter quand tu auras le backend) -->
+                    <div style="margin: 16px 0; text-align: center;">
+                        <small>Vous recevrez un code OTP par SMS/WhatsApp</small>
+                    </div>
+                    <!-- <label style="display: flex; align-items: center;gap: 800px;  font-size: 0.9rem; margin: 16px 0;"> -->
+                    <style>
+                        .label input {
+                            position: absolute;
+                            width: 12px;
+                        }
+                        
+                        .label span {
+                            position: relative;
+                            margin-left: 15px;
+                            top: 5px;
+                        }
+                    </style>
+                    <label class="label">
+                        <input type="checkbox" required > 
+                        <span> 
+                            J'accepte les <a href="conditions.html" style="color: #16a34a;">conditions d'utilisation</a> et la <a href="confidentialite.html" style="color:#16a34a;">politique de confidentialité</a>
+                        </span> 
+                    </label>
+                </div>
+                <button type="submit" class="btn">Créer mon compte</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">
+                Déjà inscrit ? <a href="login.html" style="color: #16a34a; font-weight: bold;">Se connecter</a>
+            </p>
+        </div>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Validation simple côté front (juste pour simuler)
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            if (password !== confirm) {
+                alert("Les mots de passe ne correspondent pas !");
+                return;
+            }
+            if (password.length < 6) {
+                alert("Le mot de passe doit faire au moins 6 caractères.");
+                return;
+            }
+            if (!phone.match(/^[6-9]\d{8}$/)) { // Format Cameroun basique (6xx xxx xxx)
+                alert("Numéro de téléphone invalide (format Cameroun attendu).");
+                return;
+            }
+            alert("Inscription simulée réussie ! Bienvenue " + phone + " �n(Dans la vraie version : redirection vers dashboard ou vérification OTP)");
+            // window.location.href = 'dashboard.html'; // décommenter plus tard
+        });
+    </script>
+</body>
+
+</html>

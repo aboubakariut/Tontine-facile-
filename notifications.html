@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications - Tontine Facile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <h2>Notifications</h2>
+        <p>Restez informé de vos tontines</p>
+    </header>
+    <div class="container">
+        <!-- Résumé + actions -->
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;gap: 12px;">
+            <div>
+                <strong>8 nouvelles</strong> • <small>3 urgentes</small>
+            </div>
+            <button class="btn btn-outline" style="padding: 10px 16px; font-size: 0.95rem;">
+                <i class="fa fa-check"></i> Tout marquer comme lu
+            </button>
+        </div>
+        <!-- Liste des notifications -->
+
+        <div class="card">
+            <h3>Aujourd'hui</h3>
+            <ul style="list-style: none;">
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; gap: 16px;">
+                    <div style=" color: #991b1b;" class="icone">
+                        <i class="fa fa-bell"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <strong style="display: block; color: #991b1b;">Cotisation due dans 24h !</strong>
+                        <p style="margin: 4px 0; color: #4b5563;">
+                            Tour 5 – Djangui Famille 2026 : 10 000 FCFA à payer avant demain 18h
+                        </p>
+                        <small style="color: #6b7280;">Il y a 2 heures</small>
+                        <div style="margin-top: 8px;"><span class="badges danger">Urgent</span>
+                        </div>
+                    </div>
+                </li>
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; gap: 16px;">
+                    <div style=" color: #16a34a;" class="icone" class="icone">
+                        <i class="fa fa-money-bill-wave"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <strong style="display: block; color: #16a34a;">Paiement reçu</strong>
+                        <p style="margin: 4px 0; color: #4b5563;">
+                            Joseph Kamga a cotisé 10 000 FCFA pour le tour 4
+                        </p>
+                        <small style="color: #6b7280;">Aujourd'hui à 09:45</small>
+                        <div style="margin-top: 8px;">
+                            <span class="badges success">Confirmé</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Hier</h3>
+            <ul style="list-style: none;">
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; gap: 16px;">
+                    <div style=" color: #1d4ed8;">
+                        <i class="fa fa-user-plus"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <strong style="display: block;">Nouvelle invitation</strong>
+                        <p style="margin: 4px 0; color: #4b5563;">
+                            Marie Ngo vous invite à rejoindre "Tontine Marché Central"
+                        </p>
+                        <small style="color: #6b7280;">Hier à 14:30</small>
+                        <div style="margin-top: 8px;">
+                            <a href="#" class="btn" style="padding: 8px 16px; font-size: 0.9rem; margin-right: 8px;">Accepter</a>
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">Refuser</a>
+                        </div>
+                    </div>
+                </li>
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; gap: 16px;">
+                    <div style=" color: #92400e;" class="icone" class="icone">
+                        <i class="fa fa-exclamation-triangle"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <strong style="display: block;">Retard signalé</strong>
+                        <p style="margin: 4px 0; color: #4b5563;">
+                            Paul Atangana n'a pas encore cotisé pour le tour 4 (2 jours de retard)
+                        </p>
+                        <small style="color: #6b7280;">Hier à 18:15</small>
+                        <div style="margin-top: 8px;">
+                            <span class="badges warning">Attention</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Il y a plus d'une semaine</h3>
+            <ul style="list-style: none;">
+                <li style="padding: 16px 0; border-bottom: 1px solid #e5e7eb; display: flex; gap: 16px;">
+                    <div style=" color: #16a34a;" class="icone" class="icone">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <strong style="display: block;">Félicitations !</strong>
+                        <p style="margin: 4px 0; color: #4b5563;">
+                            Vous avez reçu votre cagnotte complète : 120 000 FCFA (Tour 2 – Njangi Collègues)
+                        </p>
+                        <small style="color: #6b7280;">15 janv 2026</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <a href="profile.html" class="btn btn-outline" style="margin: 24px 0px; display: block; text-align: center;">
+            ← Retour au profil
+        </a>
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+    <!-- <script>
+        // Simulation interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                if (btn.textContent.includes('Accepter')) {
+                    e.preventDefault();
+                    alert("Invitation acceptée ! Vous êtes maintenant membre de la tontine.");
+                } else if (btn.textContent.includes('Refuser')) {
+                    e.preventDefault();
+                    alert("Invitation refusée.");
+                } else if (btn.textContent.includes('lu')) {
+                    e.preventDefault();
+                    alert("Toutes les notifications marquées comme lues (simulation).");
+                }
+            });
+        });
+    </script> -->
+</body>
+
+</html>

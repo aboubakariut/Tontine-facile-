@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mes Tontines</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Tontine Facile">
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Icônes (ajoute-les dans un dossier /icons/) -->
+    <link rel="icon" href="icons/icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" sizes="192x192">
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker enregistré !', reg))
+                    .catch(err => console.log('Échec enregistrement SW :', err));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <script src="side.js"></script>
+    <header>
+        <p>Mes Tontines</p>
+    </header>
+    <div class="container">
+        <a href="create-tontine.html" class="btn btn-outline">+ Créer une nouvelle tontine</a>
+        <div class="card">
+            <h3>Djangui Famille 2026</h3>
+            <p>Montant : 10 000 FCFA / semaine</p>
+            <p>Membres : 12 / 12</p>
+            <p>Prochain bénéficiaire : <strong>Toi !</strong> (dans 3 jours)</p>
+            <!-- <span class="badge success">Actif</span> -->
+            <a href="tontine-detail.html" class="btn">Voir détails</a>
+        </div>
+        <div class="card">
+            <h3>Njangi Collègues</h3>
+            <p>Montant : 50 000 FCFA / mois</p>
+            <p>Membres : 8 / 10</p>
+            <p>Dernier reçu : Marie – Janv 2026</p>
+            <!-- <span class="badge warning">En attente 2 cotisations</span> -->
+            <a href="tontine-detail.html" class="btn">Voir détails</a>
+        </div>
+
+    </div>
+    <script src="footer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
