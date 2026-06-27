@@ -1,0 +1,146 @@
+/* ================================================
+THEME LIGHT – COULEURS FIXES
+Tous les éléments de l'application
+================================================ */
+
+body {
+    background: #f8f9fa;
+    color: #1f2937;
+}
+
+header {
+    background: #1d4ed8;
+    color: white;
+}
+
+.header-content {
+    background: #1d4ed8;
+}
+
+.card {
+    background: white;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    color: #1f2937;
+}
+
+.btn {
+    background: #1d4ed8;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.92;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #1d4ed8;
+    color: #1d4ed8;
+}
+
+input,
+select,
+textarea {
+    background: white;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+}
+
+.badge.success {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.badge.warning {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.badge.danger {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+
+/* Bottom nav premium */
+
+.bottom-nav.premium {
+    background: #172554;
+}
+
+.nav-item {
+    color: white;
+}
+
+.nav-item.active,
+.nav-item.active i,
+.nav-item.active span {
+    color: #16a34a !important;
+}
+
+.fab {
+    background: linear-gradient(145deg, #16a34a, #15803d);
+    color: white;
+}
+
+
+/* Sidebar */
+
+.sidebar {
+    background: #172554;
+    color: white;
+}
+
+.sidebar-menu a {
+    color: white;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(29, 78, 216, 0.35);
+}
+
+.sidebar-menu a.active {
+    background: #1d4ed8;
+    border-left: 5px solid #16a34a;
+}
+
+
+/* Switch toggle */
+
+.slider {
+    background-color: #ccc;
+}
+
+input:checked+.slider {
+    background-color: #16a34a;
+}
+
+
+/* Autres éléments courants */
+
+h2,
+h3,
+h4 {
+    color: #1f2937;
+}
+
+a {
+    color: #1d4ed8;
+}
+
+small,
+.text-muted {
+    color: #6b7280;
+}
+
+table thead tr {
+    background: #1d4ed8;
+    color: white;
+}
+
+table td,
+table th {
+    border-bottom: 1px solid #e5e7eb;
+}
