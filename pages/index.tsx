@@ -1,79 +1,52 @@
-import { useState } from 'react'
-import { signIn, signUp } from '@/lib/supabase'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { getCurrentUser } from '@/lib/supabase'
 
-export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [isSignUp, setIsSignUp] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+export default function Splash() {
   const router = useRouter()
 
-  const handleAuth = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-
-    try {
-      if (isSignUp) {
-        const { error: signUpError } = await signUp(email, password, name, phone)
-        if (signUpError) throw signUpError
-        alert('Inscription réussie ! Connectez-vous')
-        setIsSignUp(false)
-        setEmail('')
-        setPassword('')
-        setName('')
-        setPhone('')
-      } else {
-        const { error: signInError } = await signIn(email, password)
-        if (signInError) throw signInError
-        router.push('/dashboard')
-      }
-    } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue')
-    } finally {
-      setLoading(false)
-    }
-  }
+  useEffect(() => {
+    // Si déjà connecté, aller directement au dashboard
+    getCurrentUser().then(({ user }) => {
+      if (user) router.push('/dashboard')
+    })
+  }, [router])
 
   return (
     <>
       <Head>
-        <title>Tontine Facile - Connexion</title>
+        <title>Tontine Facile</title>
+        <meta name="description" content="Gérez vos Adachi, njangi et tontines en toute transparence" />
+        <meta name="theme-color" content="#1d4ed8" />
       </Head>
-      <div className="splash">
-        <div className="logo">Tontine Facile</div>
-        <div className="slogan">Gérez vos Adachi et njangi en toute transparence</div>
-        <div className="card" style={{ marginTop: '40px', maxWidth: '400px' }}>
-          <h2>{isSignUp ? 'Inscription' : 'Connexion'}</h2>
-          {error && <div className="error">{error}</div>}
-          <form onSubmit={handleAuth}>
-            {isSignUp && (
-              <>
-                <label>Nom complet *</label>
-                <input type="text" placeholder="Votre nom" value={name} onChange={(e) => setName(e.target.value)} required />
-                <label>Téléphone WhatsApp *</label>
-                <input type="tel" placeholder="+237 6XX XXX XXX" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-              </>
-            )}
-            <label>Email *</label>
-            <input type="email" placeholder="votre@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <label>Mot de passe *</label>
-            <input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <button type="submit" className="btn" disabled={loading}>{loading ? 'Chargement...' : isSignUp ? "S'inscrire" : 'Se connecter'}</button>
-          </form>
-          <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.9rem' }}>
-            {isSignUp ? 'Déjà inscrit ?' : 'Pas de compte ?'}{' '}
-            <button onClick={() => {setIsSignUp(!isSignUp); setError('')}} style={{background: 'none', border: 'none', color: '#1d4ed8', cursor: 'pointer', textDecoration: 'underline'}}>
-              {isSignUp ? 'Connexion' : 'Inscription'}
-            </button>
-          </p>
+      <div className="splash-page">
+        <div className="splash-logo">Tontine Facile</div>
+        <p className="splash-slogan">Gérez vos Adachi et njangi en toute transparence</p>
+        <div style={{ margin: '32px 0' }}>
+          <svg
+            width="72"
+            height="72"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity={0.9}
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
         </div>
-        <p style={{ marginTop: '40px', fontSize: '0.85rem', opacity: 0.8 }}>Version 1.0 • Ngaoundéré, Cameroun</p>
+        <button className="btn-start" onClick={() => router.push('/login')}>
+          Commencer
+        </button>
+        <p style={{ marginTop: '40px', fontSize: '0.9rem', opacity: 0.8 }}>
+          Version 1.0 &bull; Ngaoundéré, Cameroun
+        </p>
       </div>
     </>
   )
