@@ -25,7 +25,7 @@ export function useAuth() {
       setUser(session?.user || null)
       setLoading(false)
       if (event === 'SIGNED_OUT') {
-        routerRef.current.push('/')
+        routerRef.current.push('/login')
       }
     })
 
