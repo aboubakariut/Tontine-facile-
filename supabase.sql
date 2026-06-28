@@ -92,8 +92,60 @@ ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE tontines ENABLE ROW LEVEL SECURITY;
 ALTER TABLE tontine_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cotisations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE invitations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies
+-- RLS Policies: users
 CREATE POLICY "Users can view their own profile" ON users FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Users can view their tontines" ON tontines FOR SELECT USING (EXISTS (SELECT 1 FROM tontine_members WHERE tontine_members.tontine_id = tontines.id AND tontine_members.user_id = auth.uid()) OR creator_id = auth.uid());
+CREATE POLICY "Users can update their own profile" ON users FOR UPDATE USING (auth.uid() = id);
+
+-- RLS Policies: tontines
+CREATE POLICY "Users can view their tontines" ON tontines FOR SELECT USING (
+  EXISTS (SELECT 1 FROM tontine_members WHERE tontine_members.tontine_id = tontines.id AND tontine_members.user_id = auth.uid())
+  OR creator_id = auth.uid()
+);
 CREATE POLICY "Users can create tontines" ON tontines FOR INSERT WITH CHECK (creator_id = auth.uid());
+CREATE POLICY "Creators can update their tontines" ON tontines FOR UPDATE USING (creator_id = auth.uid());
+
+-- RLS Policies: tontine_members
+CREATE POLICY "Members can view memberships of their tontines" ON tontine_members FOR SELECT USING (
+  EXISTS (SELECT 1 FROM tontines WHERE tontines.id = tontine_members.tontine_id AND (tontines.creator_id = auth.uid() OR tontine_members.user_id = auth.uid()))
+);
+CREATE POLICY "Creators can add members" ON tontine_members FOR INSERT WITH CHECK (
+  EXISTS (SELECT 1 FROM tontines WHERE tontines.id = tontine_id AND tontines.creator_id = auth.uid())
+);
+
+-- RLS Policies: cotisations
+CREATE POLICY "Members can view cotisations of their tontines" ON cotisations FOR SELECT USING (
+  EXISTS (SELECT 1 FROM tontine_members WHERE tontine_members.tontine_id = cotisations.tontine_id AND tontine_members.user_id = auth.uid())
+  OR EXISTS (SELECT 1 FROM tontines WHERE tontines.id = cotisations.tontine_id AND tontines.creator_id = auth.uid())
+);
+CREATE POLICY "Members can create cotisations" ON cotisations FOR INSERT WITH CHECK (
+  user_id = auth.uid()
+  AND EXISTS (SELECT 1 FROM tontine_members WHERE tontine_members.tontine_id = cotisations.tontine_id AND tontine_members.user_id = auth.uid())
+);
+
+-- RLS Policies: transactions
+CREATE POLICY "Members can view transactions of their tontines" ON transactions FOR SELECT USING (
+  from_user_id = auth.uid()
+  OR to_user_id = auth.uid()
+  OR EXISTS (SELECT 1 FROM tontines WHERE tontines.id = transactions.tontine_id AND tontines.creator_id = auth.uid())
+);
+CREATE POLICY "Authenticated users can create transactions" ON transactions FOR INSERT WITH CHECK (from_user_id = auth.uid());
+
+-- RLS Policies: invitations
+CREATE POLICY "Creators can manage invitations" ON invitations FOR SELECT USING (
+  invited_by = auth.uid()
+  OR EXISTS (SELECT 1 FROM tontines WHERE tontines.id = invitations.tontine_id AND tontines.creator_id = auth.uid())
+);
+CREATE POLICY "Creators can create invitations" ON invitations FOR INSERT WITH CHECK (
+  invited_by = auth.uid()
+  AND EXISTS (SELECT 1 FROM tontines WHERE tontines.id = tontine_id AND tontines.creator_id = auth.uid())
+);
+CREATE POLICY "Creators can update invitations" ON invitations FOR UPDATE USING (invited_by = auth.uid());
+
+-- RLS Policies: notifications
+CREATE POLICY "Users can view their own notifications" ON notifications FOR SELECT USING (user_id = auth.uid());
+CREATE POLICY "Users can update their own notifications" ON notifications FOR UPDATE USING (user_id = auth.uid());
+CREATE POLICY "System can create notifications" ON notifications FOR INSERT WITH CHECK (true);

@@ -12,7 +12,6 @@ export default function CotiserForm({ tontineId, amount, onSuccess, onCancel }: 
     try {
       const { error: cotisationError } = await createCotisation(tontineId, amount, paymentMethod)
       if (cotisationError) throw cotisationError
-      alert('Cotisation enregistrée !')
       onSuccess()
     } catch (error: any) {
       setError(error.message)
