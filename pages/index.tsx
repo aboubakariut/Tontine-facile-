@@ -11,18 +11,20 @@ export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const router = useRouter()
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
+    setSuccess('')
 
     try {
       if (isSignUp) {
         const { error: signUpError } = await signUp(email, password, name, phone)
         if (signUpError) throw signUpError
-        alert('Inscription réussie ! Connectez-vous')
+        setSuccess('Inscription réussie ! Vous pouvez maintenant vous connecter.')
         setIsSignUp(false)
         setEmail('')
         setPassword('')
@@ -51,6 +53,7 @@ export default function Login() {
         <div className="card" style={{ marginTop: '40px', maxWidth: '400px' }}>
           <h2>{isSignUp ? 'Inscription' : 'Connexion'}</h2>
           {error && <div className="error">{error}</div>}
+          {success && <div className="success">{success}</div>}
           <form onSubmit={handleAuth}>
             {isSignUp && (
               <>

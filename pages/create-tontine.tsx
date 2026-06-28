@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useAuth } from '@/hooks/useAuth'
 import { createTontine } from '@/lib/supabase'
 import Navigation from '@/components/Navigation'
@@ -38,8 +37,7 @@ export default function CreateTontine() {
       if (formData.total_members < 2 || formData.total_members > 100) throw new Error('Le nombre de membres doit être entre 2 et 100')
       const { error: createError } = await createTontine(formData)
       if (createError) throw createError
-      alert('Tontine créée avec succès !')
-      router.push('/dashboard')
+      router.push('/dashboard?created=1')
     } catch (error: any) {
       setError(error.message || 'Une erreur est survenue')
     } finally {
@@ -48,6 +46,10 @@ export default function CreateTontine() {
   }
 
   if (authLoading) return <div className="container" style={{ textAlign: 'center' }}>Chargement...</div>
+  if (!user) {
+    router.push('/')
+    return null
+  }
 
   return (
     <>
@@ -87,7 +89,7 @@ export default function CreateTontine() {
             </select>
             <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
               <button type="submit" className="btn" disabled={loading}>{loading ? 'Création...' : 'Créer la tontine'}</button>
-              <Link href="/dashboard"><button type="button" className="btn btn-outline">Annuler</button></Link>
+              <button type="button" className="btn btn-outline" onClick={() => router.push('/dashboard')}>Annuler</button>
             </div>
           </form>
         </div>

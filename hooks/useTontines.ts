@@ -27,7 +27,10 @@ export function useTontineById(id: string) {
   const [error, setError] = useState<any>(null)
 
   useEffect(() => {
-    if (id) fetchTontine()
+    if (id) {
+      setLoading(true)
+      fetchTontine()
+    }
   }, [id])
 
   const fetchTontine = async () => {

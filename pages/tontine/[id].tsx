@@ -17,6 +17,10 @@ export default function TontineDetail() {
   const [showCotiserForm, setShowCotiserForm] = useState(false)
 
   if (authLoading || tontineLoading) return <div className="container">Chargement...</div>
+  if (!authLoading && !user) {
+    router.push('/')
+    return null
+  }
   if (!tontine) return <div className="container"><p>Tontine non trouvée</p></div>
 
   const totalCotise = cotisations.reduce((sum: number, c: any) => sum + (c.amount || 0), 0)
